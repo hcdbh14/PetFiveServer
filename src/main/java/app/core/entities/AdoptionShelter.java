@@ -1,21 +1,14 @@
-package app.core.beans;
+package app.core.entities;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import interfaces.AdoptionShelterInterface;
 
-
-@javax.persistence.Entity(name = "adoption_shelters")
-@Component("adoptionShelter")
-@Scope("prototype")
-@Table(name = "adoption_shelters")
+@Entity
 public class AdoptionShelter implements AdoptionShelterInterface {
 
 	@Id
@@ -31,12 +24,14 @@ public class AdoptionShelter implements AdoptionShelterInterface {
 	private String description;
 	@Column(nullable = false)
 	private String address;
+	@Column(nullable = false, columnDefinition="MEDIUMTEXT")
+	private String logo;
 
 	public AdoptionShelter() {
 		super();
 	}
 	
-	public AdoptionShelter(int id, String name, String email, String phoneNumber, String description, String address) {
+	public AdoptionShelter(int id, String name, String email, String phoneNumber, String description, String address, String logo) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -44,30 +39,35 @@ public class AdoptionShelter implements AdoptionShelterInterface {
 		this.phoneNumber = phoneNumber;
 		this.description = description;
 		this.address = address;
+		this.logo = logo;
 	}
 	
-	public int id() {
+	public int getId() {
 		return id;
 	}
 
-	public String name() {
+	public String getName() {
 		return name;
 	}
 
-	public String email() {
+	public String getEmail() {
 		return email;
 	}
 	
-	public String phoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 	
-	public String description() {
+	public String getDescription() {
 		return description;
 	}
 	
-	public String address() {
+	public String getAddress() {
 		return address;
+	}
+	
+	public String getLogo() {
+		return logo;
 	}
 	
 	public void setId(int id) {
@@ -95,5 +95,10 @@ public class AdoptionShelter implements AdoptionShelterInterface {
 	
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+	
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 }

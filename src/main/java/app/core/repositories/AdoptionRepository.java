@@ -1,16 +1,34 @@
-package InterfacesDao;
+package app.core.repositories;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import app.core.beans.AdoptionShelter;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+import app.core.entities.AdoptionShelter;
 
-public interface AdoptionShelterDao {
+
+public interface AdoptionRepository extends JpaRepository<AdoptionShelter, Integer> {	
+
+	@Query("from AdoptionShelter where name=:name")
+	AdoptionShelter getByName(@Param("name") String name);
+
+	@Modifying
+	@Transactional 
+	@Query("update AdoptionShelter set address = :address, description = :description, email = :email, name = :name, phone_number = :phoneNumber where id = :id")
+	void updateShelter(@Param("id") int id, @Param("address") String address, @Param("description") String description, @Param("email") String email, @Param("name") String name, @Param("phoneNumber") String phoneNumber);
+
+	@Modifying
+	@Transactional 
+	@Query("delete AdoptionShelter where id = :id")
+	void deleteShelter(@Param("id") int id);
 	
-	public boolean isShelterExists(String name);
-	public void addShelter(AdoptionShelter adoptionShelter);
-	public void updateShelter(AdoptionShelter adoptionShelter);
-	public void deleteShelter(int shelterId);
-	public ArrayList<AdoptionShelter> getAllShelters();
-	public AdoptionShelter getOneShelter(int shelterId);
+	@Query("from AdoptionShelter")
+	List<AdoptionShelter> getAllShelters();
 
+	
+	@Query("from AdoptionShelter where phone_number=:phoneNumber")
+	AdoptionShelter findByPhoneNumber(@Param("phoneNumber") String phoneNumber);
 }

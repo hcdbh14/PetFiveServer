@@ -1,28 +1,21 @@
-package app.core.beans;
+package app.core.entities;
 
 import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import interfaces.NoticeInterface;
 
 /**
-* Notice object holds the data about a pet for adoption.
-Notices are created by adoption shelters.
-* <p>
-*/
+ * Notice object holds the data about a pet for adoption. Notices are created by
+ * adoption shelters.
+ * <p>
+ */
 
-@javax.persistence.Entity(name = "adoption_notices")
-@Component("notice")
-@Scope("prototype")
-@Table(name = "adoption_notices")
+@Entity
 public class Notice implements NoticeInterface {
 
 	@Id
@@ -31,14 +24,13 @@ public class Notice implements NoticeInterface {
 	@Column(nullable = false)
 	private String name;
 	@Column(nullable = false)
-	private int age;
+	private String age;
+	@Column(columnDefinition = "TEXT")
 	private String description;
 	@Column(nullable = false)
 	private String gender;
 	@Column(nullable = false)
 	private String goodWords;
-	@Column(nullable = false)
-	private String images;
 	@Column(nullable = false)
 	private int isAdopted;
 	@Column(name = "phone_number", nullable = false)
@@ -61,15 +53,18 @@ public class Notice implements NoticeInterface {
 	private int shelter_id;
 	@Column(nullable = false)
 	private int vaccinated;
-	
-	
+	@Column(nullable = false)
+	private String ageGroup;
+	@Column(nullable = false, columnDefinition = "MEDIUMTEXT")
+	private String image;
+
 	public Notice() {
 		super();
 	}
-	
-	public Notice(int id, String name, int age, String description, String gender, String goodWords, String images,
-			int isAdopted, String phoneNumber, int poopTrained, String race, String region, String size,
-			String suitables, Date postDate, String petType, int shelter_id, int vaccinated) {
+
+	public Notice(int id, String name, String age, String description, String gender, String goodWords, int isAdopted,
+			String phoneNumber, int poopTrained, String race, String region, String size, String suitables,
+			Date postDate, String petType, int shelter_id, int vaccinated, String ageGroup, String image) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -77,7 +72,6 @@ public class Notice implements NoticeInterface {
 		this.description = description;
 		this.gender = gender;
 		this.goodWords = goodWords;
-		this.images = images;
 		this.isAdopted = isAdopted;
 		this.phoneNumber = phoneNumber;
 		this.poopTrained = poopTrained;
@@ -89,8 +83,10 @@ public class Notice implements NoticeInterface {
 		this.petType = petType;
 		this.shelter_id = shelter_id;
 		this.vaccinated = vaccinated;
+		this.ageGroup = ageGroup;
+		this.image = image;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -99,7 +95,7 @@ public class Notice implements NoticeInterface {
 		this.name = name;
 	}
 
-	public void setAge(int age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 
@@ -115,8 +111,8 @@ public class Notice implements NoticeInterface {
 		this.goodWords = goodWords;
 	}
 
-	public void setImages(String images) {
-		this.images = images;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public void setAdopted(int isAdopted) {
@@ -163,88 +159,83 @@ public class Notice implements NoticeInterface {
 		this.vaccinated = vaccinated;
 	}
 
-	public int id() {
+	public void setAgeGroup(String ageGroup) {
+		this.ageGroup = ageGroup;
+	}
+
+	public int getId() {
 		return id;
 	}
 
-	public String name() {
+	public String getName() {
 		return name;
 	}
 
-	public int age() {
+	public String getAge() {
 		return age;
 	}
 
-	public String description() {
+	public String getDescription() {
 		return description;
 	}
 
-	public String gender() {
+	public String getGender() {
 		return gender;
 	}
 
-
-	public String goodWords() {
+	public String getGoodWords() {
 		return goodWords;
 	}
 
-
-	public String images() {
-		return images;
+	public String getImage() {
+		return image;
 	}
 
-
-	public int isAdopted() {
+	public int getIsAdopted() {
 		return isAdopted;
 	}
 
-
-	public String phoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-
-	public int poopTrained() {
+	public int getPoopTrained() {
 		return poopTrained;
 	}
 
-
-	public String race() {
+	public String getRace() {
 		return race;
 	}
 
-
-	public String region() {
+	public String getRegion() {
 		return region;
 	}
 
-
-	public String size() {
+	public String getSize() {
 		return size;
 	}
 
-
-	public String suitables() {
+	public String getSuitables() {
 		return suitables;
 	}
 
-
-	public Date postDate() {
+	public Date getPostDate() {
 		return postDate;
 	}
 
-
-	public String petType() {
+	public String getPetType() {
 		return petType;
 	}
 
-
-	public int shelter_id() {
+	public int getShelter_id() {
 		return shelter_id;
 	}
 
-
-	public int vaccinated() {
+	public int getVaccinated() {
 		return vaccinated;
+	}
+
+	public String getAgeGroup() {
+		return ageGroup;
 	}
 }

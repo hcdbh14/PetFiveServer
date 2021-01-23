@@ -1,19 +1,29 @@
-package jobs;
+package app.core.jobs;
 
 
 import java.util.Date;
 import java.util.TimerTask;
 
-import app.core.DBDAO.NoticeDbDao;
-import app.core.DBDAO.PostDbDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import app.core.repositories.NoticeRepository;
+import app.core.repositories.PostRepository;
 
 /**
 * This class runs on a daily basis and deletes posts and notices that pass their expiration date.
 <p>
 */
+
+@Service("deleterDailyJob")
+@Scope("singleton")
 public class DeleterDailyJob extends TimerTask {
 
 	static DeleterDailyJob instance;
+	@Autowired
+	public PostRepository repoPost;
+	@Autowired
+	public NoticeRepository repoNotice;
 	
 	public static DeleterDailyJob getInstance() {
 		if (instance == null) {
@@ -30,9 +40,7 @@ public class DeleterDailyJob extends TimerTask {
 	}
 
 	private void deleteOldPostsAndNotices() {
-		PostDbDao postDBDAO = new PostDbDao();
-		NoticeDbDao noticeDBDAO = new NoticeDbDao();
-		postDBDAO.deleteExpiredPosts();
-		noticeDBDAO.deleteExpiredNotices();
+		repoPost.deleteExpiredPosts();
+		repoNotice.deleteExpiredNotices();
 	}
 }

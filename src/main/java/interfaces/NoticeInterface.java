@@ -4,22 +4,23 @@ import java.sql.Date;
 
 public interface NoticeInterface {
 
-	int id();
-	String name();
-	int age();
-	String description();
-	String gender();
-	String goodWords();
-	String images();
-	int isAdopted();
-	String phoneNumber();
-	int poopTrained();
-	String race();
-	String region();
-	String size();
-	String suitables();
-	Date postDate();
-	String petType();
-	int shelter_id();
-	int vaccinated();
+	int getId();
+	String getName();
+	String getAge();
+	String getDescription();
+	String getGender();
+	String getGoodWords();
+	int getIsAdopted();
+	String getPhoneNumber();
+	int getPoopTrained();
+	String getRace();
+	String getRegion();
+	String getSize();
+	String getSuitables();
+	Date getPostDate();
+	String getPetType();
+	int getShelter_id();
+	int getVaccinated();
+	String getAgeGroup();
+	String getImage();
 }

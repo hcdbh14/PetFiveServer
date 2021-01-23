@@ -1,15 +1,12 @@
 package app.core.facades;
 
-import java.util.ArrayList;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import InterfacesDao.AdoptionShelterDao;
-import app.core.DBDAO.PostDbDao;
-import app.core.DBDAO.PosterDbDao;
-import app.core.beans.AdoptionShelter;
-import app.core.beans.Post;
-import app.core.beans.Poster;
+import app.core.entities.AdoptionShelter;
+import app.core.entities.Post;
+import app.core.entities.Poster;
 /**
 * This class contains all that actions that admin user can make.
 <p>
@@ -18,68 +15,53 @@ import app.core.beans.Poster;
 @Scope("prototype")
 public class AdminFacade extends ClientFacade {
 
-	@Autowired
-	private PostDbDao postDb;
-	@Autowired
-	private PosterDbDao posterDb;
-	@Autowired
-	private AdoptionShelterDao shelterDb;
-	
-	public boolean isShelterExists(String name) {
-		return shelterDb.isShelterExists(name);
-	}
+
 			
-	public void addNewShelter(AdoptionShelter shelter) {
-		shelterDb.addShelter(shelter);
+	public void addShelter(AdoptionShelter shelter) {
+		adoptionRepo.save(shelter);
 	}
 
 	public void updateShelter(AdoptionShelter shelter) {
-		shelterDb.updateShelter(shelter);
+		adoptionRepo.save(shelter);
 	}
 
 	public void deleteShelter(int shelterId) {
-		shelterDb.deleteShelter(shelterId);
+		adoptionRepo.deleteShelter(shelterId);
 	}
 
 	public void addPost(Post post) {
-		postDb.addPost(post);
+		repoPost.save(post);
 	}
 	
 	public void updatePost(Post post) {
-		postDb.updatePost(post);
+		repoPost.save(post);
 	}
 	
 	public void deletePost(int postId) {
-		postDb.deletePost(postId);
+		repoPost.deletePost(postId);
 	}
 
 	
 	public void addNewPoster(Poster poster) {
-		posterDb.addPoster(poster);
+		repoPoster.save(poster);
 	}
 
 	public void updatePoster(Poster poster) {
-		posterDb.updatePoster(poster);
+		repoPoster.save(poster);
 	}
 
 	public void deletePoster(int posterId) {
-		posterDb.deletePoster(posterId);
+		repoPoster.deletePoster(posterId);
 	}
 
-	public ArrayList<Poster> getAllPosters() {
-		ArrayList<Poster> result = posterDb.getAllPosters();
+	public List<Poster> getAllPosters() {
+		List<Poster> result = repoPoster.getAllPosters();
 
 		return result;
 	}
 
 	public Poster getOnePoster(int posterId) {
-		Poster result = posterDb.getOnePoster(posterId);
-
-		return result;
-	}
-	
-	public boolean posterExists(String email, String phoneNumber) {
-		boolean result = posterDb.posterExists(email, phoneNumber);
+		Poster result = repoPoster.getOnePoster(posterId);
 
 		return result;
 	}

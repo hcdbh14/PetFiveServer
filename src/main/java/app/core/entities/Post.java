@@ -1,16 +1,12 @@
-package app.core.beans;
+package app.core.entities;
 
 import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import interfaces.PostInterface;
 
 /**
@@ -18,10 +14,7 @@ import interfaces.PostInterface;
 * <p>
 */
 
-@javax.persistence.Entity(name = "posts")
-@Component("post")
-@Scope("prototype")
-@Table(name = "posts")
+@Entity
 public class Post implements PostInterface {
 	
 	@Id

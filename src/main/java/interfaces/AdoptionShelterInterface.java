@@ -1,11 +1,12 @@
 package interfaces;
 
-public interface AdoptionShelterInterface {
+public interface AdoptionShelterInterface { 
 
-	int id();
-	String name();
-	String email();
-	String phoneNumber();
-	String description();
-	String address();
+	int getId();
+	String getName();
+	String getEmail();
+	String getPhoneNumber();
+	String getDescription();
+	String getAddress();
+	String getLogo();
 }

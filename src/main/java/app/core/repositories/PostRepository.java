@@ -1,15 +1,29 @@
-package InterfacesDao;
+package app.core.repositories;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import app.core.beans.Post;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+import app.core.entities.Post;
 
-public interface PostDao {
+public interface PostRepository extends JpaRepository<Post, Integer> {
+
+	@Modifying
+	@Transactional
+	@Query(value = "DELETE FROM post WHERE post_date < NOW() - INTERVAL 30 DAY", nativeQuery = true)
+	void deleteExpiredPosts();
+
+	@Modifying
+	@Transactional
+	@Query("delete Post where id=:id")
+	void deletePost(@Param("id") int id);
 	
-	public void deleteExpiredPosts();
-	public void addPost(Post post);
-	public void updatePost(Post post);
-	public void deletePost(int postId);
-	public ArrayList<Post> getAllPosts();
-	public Post getOnePost(int postId);
+	@Query("from Post")
+	List<Post> getAllPosts();
+	
+	@Query("from Post where id=:id")
+	Post getOnePost(@Param("id") int id);
 }

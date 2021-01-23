@@ -1,20 +1,14 @@
-package app.core.beans;
+package app.core.entities;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import interfaces.PosterInterface;
 
-@javax.persistence.Entity(name = "posters")
-@Component("poster")
-@Scope("prototype")
-@Table(name = "posters")
+@Entity
 public class Poster implements PosterInterface {
 
 	@Id

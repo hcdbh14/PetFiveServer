@@ -1,12 +1,9 @@
 package app.core.facades;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import app.core.DBDAO.PostDbDao;
-import app.core.DBDAO.PosterDbDao;
-import app.core.beans.Post;
-import app.core.beans.Poster;
+import app.core.entities.Post;
+import app.core.entities.Poster;
 
 /**
 * This class contains all the actions that poster user can make +
@@ -15,27 +12,35 @@ import app.core.beans.Poster;
 */
 @Service("posterFacade")
 @Scope("prototype")
-public class PosterFacade extends ClientFacade {
+public class PosterFacade extends ClientFacade  {
 	
-	@Autowired
-	private PostDbDao postDb;
-	@Autowired
-	private PosterDbDao posterDb;
-
-		
+	
 	public void addPost(Post post) {
-		postDb.addPost(post);
+		repoPost.save(post);
 	}
 	
 	public void updatePost(Post post) {
-		postDb.updatePost(post);
+		repoPost.save(post);
 	}
 	
 	public void deletePost(int postId) {
-		postDb.deletePost(postId);
+		repoPost.deletePost(postId);;
 	}
 	
 	public Poster getPosterDetails(int posterId) {
-		return posterDb.getOnePoster(posterId);
+		return repoPoster.getOnePoster(posterId);
+	}
+	
+	public Poster findByPhoneNumber(String phoneNumber) {
+		return repoPoster.findByPhoneNumber(phoneNumber);
+	}
+
+	public void setBeanName(String name) {
+		
+		
+	}
+
+	public void afterPropertiesSet() throws Exception {
+	
 	}
 }
