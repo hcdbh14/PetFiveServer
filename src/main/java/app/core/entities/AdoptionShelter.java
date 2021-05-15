@@ -24,6 +24,10 @@ public class AdoptionShelter implements AdoptionShelterInterface {
 	private String description;
 	@Column(nullable = false)
 	private String address;
+	@Column(nullable = false)
+	private String website;
+	@Column(name = "social_site", nullable = false)
+	private String socialSite;
 	@Column(nullable = false, columnDefinition="MEDIUMTEXT")
 	private String logo;
 
@@ -31,7 +35,7 @@ public class AdoptionShelter implements AdoptionShelterInterface {
 		super();
 	}
 	
-	public AdoptionShelter(int id, String name, String email, String phoneNumber, String description, String address, String logo) {
+	public AdoptionShelter(int id, String name, String email, String phoneNumber, String description, String address, String website, String socialSite, String logo) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -39,6 +43,8 @@ public class AdoptionShelter implements AdoptionShelterInterface {
 		this.phoneNumber = phoneNumber;
 		this.description = description;
 		this.address = address;
+		this.website = website;
+		this.socialSite = socialSite;
 		this.logo = logo;
 	}
 	
@@ -64,6 +70,14 @@ public class AdoptionShelter implements AdoptionShelterInterface {
 	
 	public String getAddress() {
 		return address;
+	}
+	
+	public String getWebsite() {
+		return website;
+	}
+	
+	public String getSocialSite() {
+		return socialSite;
 	}
 	
 	public String getLogo() {
@@ -97,6 +111,13 @@ public class AdoptionShelter implements AdoptionShelterInterface {
 		this.address = address;
 	}
 	
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+	
+	public void setSocialSite(String socialSite) {
+		this.socialSite = socialSite;
+	}
 	
 	public void setLogo(String logo) {
 		this.logo = logo;

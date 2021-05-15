@@ -24,17 +24,22 @@ public interface NoticeRepository extends JpaRepository<Notice, Integer> {
 	
 	@Modifying
 	@Transactional
-	@Query(value = "DELETE FROM notice WHERE post_date < NOW() - INTERVAL 30 DAY", nativeQuery = true)
+	@Query(value = "DELETE FROM notice WHERE post_date < NOW() - INTERVAL 45 DAY", nativeQuery = true)
 	void deleteExpiredNotices();
 
 	@Query(value = "\n" + 
 			"  SELECT * FROM (\n" + 
-			"     (SELECT * FROM notice WHERE pet_type='כלב' LIMIT 3)\n" + 
+			"     (SELECT * FROM notice WHERE pet_type='כלב' ORDER BY id DESC LIMIT 3)\n" + 
 			"     UNION\n" + 
-			"     (SELECT * FROM notice WHERE pet_type='חתול' LIMIT 1))\n" + 
-			"collection;", nativeQuery = true)
+			"     (SELECT * FROM notice WHERE pet_type='חתול' ORDER BY id DESC LIMIT 1))\n" + 
+			"collection"
+			, nativeQuery = true)
 	List<Notice> getSpotLightPets();
 	
+	@Query(value = 
+			"SELECT * FROM notice WHERE age IS NULL"
+			, nativeQuery = true)
+	List<Notice> getAllPetsWithNoAge();
 	
 	Page<Notice> findByName(String name, Pageable pageable);
 	Page<Notice> findByGender(String gender, Pageable pageable);

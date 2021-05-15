@@ -8,5 +8,7 @@ public interface AdoptionShelterInterface {
 	String getPhoneNumber();
 	String getDescription();
 	String getAddress();
+	String getWebsite();
+	String getSocialSite();
 	String getLogo();
 }

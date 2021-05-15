@@ -13,12 +13,9 @@ import org.springframework.stereotype.Service;
 import app.core.entities.AdoptionShelter;
 import app.core.entities.Notice;
 import app.core.entities.NoticeImage;
-import app.core.entities.Post;
 import app.core.repositories.AdoptionRepository;
 import app.core.repositories.NoticeImageRepository;
 import app.core.repositories.NoticeRepository;
-import app.core.repositories.PostRepository;
-import app.core.repositories.PosterRepository;
 /**
 * This class contains all the actions that a regular client can make.
 <p>
@@ -31,12 +28,6 @@ public class ClientFacade {
 
 	@Autowired
 	EntityManager em;
-	
-	@Autowired
-	public PostRepository repoPost;
-	
-	@Autowired
-	public PosterRepository repoPoster;
 	
 	@Autowired
 	public NoticeRepository repoNotice;
@@ -54,25 +45,14 @@ public class ClientFacade {
 		return result;
 	}
 	
+	
 	public Optional<Notice> getNoticeById(int noticeId) {
 		Optional<Notice> result = repoNotice.findById(noticeId);
 
 		return result;
 	}
 	
-	public Post getOnePost(int postId) {
-		Post result = repoPost.getOnePost(postId);
-		
-		return result;
-	}  
-	
-	public List<Post> getAllPosts() {
-		List<Post> result = repoPost.getAllPosts();
-		
-		return result;
-	}  
-	  
-	
+
 	public List<AdoptionShelter> getAllShelters() {
 		List<AdoptionShelter> result = adoptionRepo.getAllShelters();
 	

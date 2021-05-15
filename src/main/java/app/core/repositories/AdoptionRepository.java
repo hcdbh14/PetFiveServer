@@ -17,11 +17,6 @@ public interface AdoptionRepository extends JpaRepository<AdoptionShelter, Integ
 
 	@Modifying
 	@Transactional 
-	@Query("update AdoptionShelter set address = :address, description = :description, email = :email, name = :name, phone_number = :phoneNumber where id = :id")
-	void updateShelter(@Param("id") int id, @Param("address") String address, @Param("description") String description, @Param("email") String email, @Param("name") String name, @Param("phoneNumber") String phoneNumber);
-
-	@Modifying
-	@Transactional 
 	@Query("delete AdoptionShelter where id = :id")
 	void deleteShelter(@Param("id") int id);
 	

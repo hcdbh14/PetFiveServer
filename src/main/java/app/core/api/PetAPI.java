@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -44,7 +45,7 @@ public class PetAPI {
 			response.setStatus(400);
 			return null;
 		}
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, "id"));
 		Page<Notice> page = clientFacade.repoNotice.findAll(pageable);
 
 		List<Notice> notices = page.getContent();
@@ -58,6 +59,17 @@ public class PetAPI {
 	public List<Notice> getSpotLightPets(HttpServletResponse response) {
 		
 		List<Notice> notices = clientFacade.repoNotice.getSpotLightPets();
+		if (notices.isEmpty()) {
+			response.setStatus(204);
+		}
+		
+		return notices;
+	}
+	
+	@GetMapping("/notices/noAge")
+	public List<Notice> getPetsWithNoAge(HttpServletResponse response) {
+		
+		List<Notice> notices = clientFacade.repoNotice.getAllPetsWithNoAge();
 		if (notices.isEmpty()) {
 			response.setStatus(204);
 		}
@@ -156,6 +168,11 @@ public class PetAPI {
 		shelterFacade.deleteNotice(noticeId);
 	}
 	
+	@DeleteMapping("/notices/delete-all-old")
+	public void deleteOldNotice() {
+		adminFacade.deleteOldNotices();
+	}
+	
 	@PostMapping("/notices/pet/images/add")
 	public void addPetImages(@RequestBody NoticeImage image) {
 		shelterFacade.addPetImage(image);
@@ -177,8 +194,11 @@ public class PetAPI {
 	}
 	
 	@PostMapping("/shelters/add")
-	public void addShelter(@RequestBody AdoptionShelter shelter) {
-		adminFacade.addShelter(shelter);
+	public Map<String, Integer> addShelter(@RequestBody AdoptionShelter shelter) {
+		AdoptionShelter savedShelter = adminFacade.addShelter(shelter);
+		Map<String, Integer> responseMap = new HashMap<String, Integer>();
+		responseMap.put("id", savedShelter.getId());
+		return responseMap;
 	}
 	
 	@PatchMapping("/shelters/update")

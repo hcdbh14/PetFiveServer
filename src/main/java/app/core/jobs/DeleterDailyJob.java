@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import app.core.repositories.NoticeRepository;
-import app.core.repositories.PostRepository;
 
 /**
 * This class runs on a daily basis and deletes posts and notices that pass their expiration date.
@@ -20,8 +19,6 @@ import app.core.repositories.PostRepository;
 public class DeleterDailyJob extends TimerTask {
 
 	static DeleterDailyJob instance;
-	@Autowired
-	public PostRepository repoPost;
 	@Autowired
 	public NoticeRepository repoNotice;
 	
@@ -40,7 +37,6 @@ public class DeleterDailyJob extends TimerTask {
 	}
 
 	private void deleteOldPostsAndNotices() {
-		repoPost.deleteExpiredPosts();
 		repoNotice.deleteExpiredNotices();
 	}
 }
